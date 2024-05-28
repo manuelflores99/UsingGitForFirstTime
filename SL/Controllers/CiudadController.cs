@@ -6,16 +6,17 @@ namespace SL.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EditorialController : ControllerBase
+    public class CiudadController : ControllerBase
     {
 
         [HttpGet]
         [Route("GetAll")]
         public ActionResult GetAll()
         {
-            Result resultado = new Result();
-            var result = BL.Editorial.GetAll();
 
+            Result resultado = new Result();
+
+            var result = BL.Ciudad.GetAll();
             resultado.Success = result.success;
             resultado.Message = result.message;
             resultado.Data = result.Item3;
@@ -29,8 +30,5 @@ namespace SL.Controllers
                 return BadRequest(resultado);
             }
         }
-
-
-
     }
 }
