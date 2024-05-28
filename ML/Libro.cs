@@ -19,5 +19,7 @@ namespace ML
         public DateTime AnioPublicacion { get; set; }
 
         public Editorial Editorial { get; set; }
+
+        public List<ML.Libro> Libros { get; set; }
     }
 }
