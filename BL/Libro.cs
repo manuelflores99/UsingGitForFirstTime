@@ -46,6 +46,7 @@ namespace BL
                                     Nombre = item.NombreEditorial
                                 }
                             };
+                            libros.Add(libro);
                         }
                         return (true, null, libros);
                     }
