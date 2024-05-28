@@ -8,38 +8,49 @@ namespace BL
 {
     public class Editorial
     {
-        //public static (bool success, string message, ML.Editorial, Exception ex) GetAll()
-        //{
-        //    ML.Editorial editorial = new ML.Editorial();
-        //    try
-        //    {
-        //        using (DL.AppDbContext context = new DL.AppDbContext())
-        //        {
-        //            var query = (from editorials in context.Editorials
 
-        //                         select new
-        //                         {
-        //                             IdEditorial = editorials.IdEditorial,
-        //                             Nombre = editorials.Nombre,
-        //                             IdCiudad = editorials.IdCity
-        //                         }).ToList();
+        public static (bool success, string message, List<ML.Editorial>, Exception error) GetAll()
+        {
+            try
+            {
+                using (DL.AppDbContext context = new DL.AppDbContext())
+                {
+                    var query = (from editorials in context.Editorials
+                                 select new
+                                 {
+                                     IdEditorial = editorials.IdEditorial,
+                                     NombreEditorial = editorials.Nombre,
+                                     IdCiudad = editorials.IdCity
 
-        //            if (query != null)
-        //            {
+                                 }).ToList();
 
+                    if (query != null)
+                    {
+                        List<ML.Editorial> Editoriales = new List<ML.Editorial>();
+                        foreach (var registros in query)
+                        {
+                            ML.Editorial editorial = new ML.Editorial();
+                            editorial.IdEditorial = registros.IdEditorial;
+                            editorial.Nombre = registros.NombreEditorial;
+                            editorial.Ciudad = new ML.Ciudad();
+                            editorial.Ciudad.IdCiudad = registros.IdEditorial;
 
-        //            }
+                            Editoriales.Add(editorial);
 
+                        }
+                        return (true, "Registros Encontrados",Editoriales, null);
+                    }
+                    else
+                    {
+                        return (false, "Registros No Encontrados", null, null);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (false, ex.Message, null, ex);
+            }
 
-        //        }
-
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-
-        //}
+        }
     }
 }
