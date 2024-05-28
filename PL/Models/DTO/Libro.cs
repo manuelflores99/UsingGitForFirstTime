@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ML
+﻿namespace PL.Models.DTO
 {
     public class Libro
     {
@@ -19,7 +13,6 @@ namespace ML
         public DateTime AnioPublicacion { get; set; }
 
         public Editorial Editorial { get; set; }
-
-        public List<ML.Libro> Libros { get; set; }
+        public List<Models.DTO.Libro> Libros { get; set; }
     }
 }
