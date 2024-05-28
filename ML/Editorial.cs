@@ -12,7 +12,10 @@ namespace ML
 
         public string Nombre { get; set; }
 
-        public string Ciudad { get; set; }
+ 
+        public ML.Ciudad Ciudad { get; set; }
+
+        
 
     }
 }
