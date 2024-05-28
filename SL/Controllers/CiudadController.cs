@@ -23,11 +23,11 @@ namespace SL.Controllers
 
             if (result.success)
             {
-                return Ok(resultado.Data);
+                return Ok(resultado);
             }
             else
             {
-                return BadRequest(resultado.Message);
+                return BadRequest(resultado);
             }
         }
     }
