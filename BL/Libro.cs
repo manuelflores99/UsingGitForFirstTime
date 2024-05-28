@@ -27,9 +27,9 @@ namespace BL
                                        IdEditorial = edi.IdEditorial,
                                        NombreEditorial = edi.Nombre
                                    }
-                                   );
+                                   ).ToList();
 
-                    if(results != null)
+                    if(results != null && results.Count > 0)
                     {
                         foreach(var item in results)
                         {
