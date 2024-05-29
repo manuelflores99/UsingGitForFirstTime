@@ -1,5 +1,3 @@
-@using PL.Models.DTO
-@model Libro
 <h3>Libros</h3>
 
 <div style="margin: 20px">
@@ -23,21 +21,7 @@
                 <th></th>
             </tr>
         </thead>
-        <tbody id="Show">
-            @foreach(var libro in Model.Libros)
-            {
-                <tr>
-                    <td><a href="@Url.Action("editar","Libro", new { idLibro = libro.IdLibro })" class="btn btn-success">Editar</a></td>
-                    <td>@libro.Titulo</td>
-                    <td>@libro.Autor</td>
-                    <td>@libro.Isbn</td>
-                    <td>@libro.AnioPublicacion.ToString("yyyy")</td>
-                    <td>@libro.Editorial.Nombre</td>
-                    <td>@libro.Ciudad.NombreCiudad</td>
-                    <td><a href="@Url.Action("eliminar","Libro", new { idLibro = libro.IdLibro })" class="btn btn-danger">Eliminar</a></td>
-                </tr>
-            }
-        </tbody>
+        <tbody id="showLibros"></tbody>
     </table>
 </div>
 
@@ -109,5 +93,5 @@
         </div>
     </div>
 </div>
-
- <script src="~/js/LibroAjax.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/js/LibroAjax.js" asp-append-version="true"></script>
