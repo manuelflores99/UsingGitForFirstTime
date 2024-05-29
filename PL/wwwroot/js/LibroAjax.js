@@ -86,7 +86,7 @@
 //        }),
 //        success: function (result) {
 //            GetAll();
-//            $("#btnExit").click(); 
+//            $("#btnExit").click();
 //            alert("Registro Actualizado");
 //        },
 //        error: function (error) {
@@ -106,7 +106,7 @@
 //        dataType: "JSON",
 //        contentType: 'application/json',
 //        data: JSON.stringify({
-         
+
 //            titulo: $("#ddlTitulo").val(),
 //            autor: $("#ddlAutor").val(),
 //            iSBN: $("#ddlIsbn").val(),
@@ -130,19 +130,19 @@
 //}
 
 
-//function Limpiar() {
-  
-//    document.getElementById('ddlTitulo').value = ' ';
-//    document.getElementById('ddlAutor').value = ' ';
-//    document.getElementById('ddlIsbn').value = ' ';
-//    document.getElementById('ddlAnio').value = ' ';
+function Limpiar() {
 
-//    GetAllEditoriales();
-//    GetAllCiudades();
+    document.getElementById('ddlTitulo').value = ' ';
+    document.getElementById('ddlAutor').value = ' ';
+    document.getElementById('ddlIsbn').value = ' ';
+    document.getElementById('ddlAnio').value = ' ';
 
-//    $("#btnAdd").show();
-//    $("#btnUpd").hide();
-//}
+    //GetAllEditoriales();
+    //GetAllCiudades();
+
+    $("#btnAdd").show();
+    $("#btnUpd").hide();
+}
 
 //function Delete(idLibro) {
 
@@ -208,4 +208,76 @@
 //            alert('Error en la conexion');
 //        }
 //    });
-//}
+//} @onkeyup = "soloLetras(this, 'lblApellidoM')"
+
+function ShowBtn() {
+    $("#btnModal").click();
+    $("#btnAdd").hide();
+    $("#btnUpd").show();
+}
+
+
+function SoloLetras(input, label) {
+
+    var teclas = $(input).val();
+    var regex = /^[a-zA-Z\s]+$/;
+
+    if (regex.test(teclas)) {
+
+        $('#' + label).text("");
+        $(input).css({ "boder-color": "green", "background-color": "green" });
+    }
+    else {
+        $('#' + label).text("Solo se permiten letras");
+        $(input).css({ "boder-color": "red", "background-color": "red" });
+
+    }
+    setTimeout(function () {
+
+        $(input).css({ "border-color": "", "background-color": "" });
+    }, 3000);   
+}
+
+
+function LetrasYNumeros(input, label) {
+
+    var teclas = $(input).val();
+    var regex = /^[a-zA-Z0-9]+$/;
+
+    if (regex.test(teclas)) {
+
+        $('#' + label).text("");
+        $(input).css({ "boder-color": "green", "background-color": "green" });
+    }
+    else {
+        $('#' + label).text("Solo se permiten letras y numeros");
+        $(input).css({ "boder-color": "red", "background-color": "red" });
+    }
+
+    setTimeout(function () {
+
+        $(input).css({ "border-color": "", "background-color": "" });
+    }, 3000);
+
+}
+
+function SoloNumeros(input, label) {
+
+    var teclas = $(input).val();
+    var regex = /^[0-9]+$/;
+
+    if (regex.test(teclas)) {
+        $('#' + label).text("");
+        $(input).css({ "boder-color": "green", "background-color": "green" });
+    }
+    else {
+        $('#' + label).text("Solo se permiten numeros");
+        $(input).css({ "boder-color": "red", "background-color": "red" });
+    }
+
+    setTimeout(function () {
+        $('#' + label).text("");
+        $(input).css({ "border-color": "", "background-color": "" });
+    }, 3000);
+
+}
