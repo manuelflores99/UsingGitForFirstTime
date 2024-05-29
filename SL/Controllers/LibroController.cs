@@ -47,12 +47,32 @@ namespace SL.Controllers
                 return BadRequest(result);
             }
         }
+
         [HttpGet]
         [Route("Add")]
         public IActionResult Add([FromBody] ML.Libro libro)
         {
             Result result = new Result();
             var task = BL.Libro.Add(libro);
+            result.Success = task.Success;
+            result.Message = task.Message;
+
+            if (task.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet]
+        [Route("Update")]
+        public IActionResult Update([FromBody] ML.Libro libro)
+        {
+            Result result = new Result();
+            var task = BL.Libro.Update(libro);
             result.Success = task.Success;
             result.Message = task.Message;
 
