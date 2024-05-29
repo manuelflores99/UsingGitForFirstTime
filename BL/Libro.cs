@@ -17,6 +17,7 @@ namespace BL
                     List<ML.Libro> libros = new List<ML.Libro>();
                     var results = (from lib in context.Libros
                                    join edi in context.Editorials on lib.IdEditorial equals edi.IdEditorial
+                                   join cit in context.Cities on edi.IdCity equals cit.IdCity
                                    select new
                                    {
                                        IdLibro = lib.IdLibro,
@@ -25,7 +26,8 @@ namespace BL
                                        Isbn = lib.Isbn,
                                        AnioPublicacion = lib.AnioPublicacion,
                                        IdEditorial = edi.IdEditorial,
-                                       NombreEditorial = edi.Nombre
+                                       NombreEditorial = edi.Nombre,
+                                       Ciudad = cit.Nombre
                                    }
                                    ).ToList();
 
@@ -44,6 +46,10 @@ namespace BL
                                 {
                                     IdEditorial = item.IdEditorial,
                                     Nombre = item.NombreEditorial
+                                },
+                                Ciudad = new ML.Ciudad
+                                {
+                                    NombreCiudad = item.Ciudad
                                 }
                             };
                             libros.Add(libro);
