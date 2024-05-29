@@ -2,7 +2,7 @@
 
 <div style="margin: 20px">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">
+    <button type="button" onclick="Limpiar()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">
         Agregar Libro
     </button>
 </div>
@@ -23,14 +23,14 @@
         </thead>
         <tbody id="Show">
             <tr>
-                <td><button class="btn btn-success">Editar</button></td>
+                <td><button onclick="GetById()" class="btn btn-success">Editar</button></td>
                 <td>inifgdfg</td>
                 <td>inifgdfg</td>
                 <td>inifgdfg</td>
                 <td>inifgdfg</td>
                 <td>inifgdfg</td>
                 <td>inifgdfg</td>
-                 <td><button class="btn btn-danger">Eliminar</button></td>
+                 <td><button onclick="Delete()"  class="btn btn-danger">Eliminar</button></td>
             </tr>
         </tbody>
     </table>
@@ -45,6 +45,12 @@
                 <button id="closeM" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
+
+                 <div class="row justify-content-center">
+                    <div class="col-7">
+                        <input id="ddlIdLibro" class="form-control" type="hidden"/>
+                    </div>
+                </div>
 
                 <div class="row justify-content-center">
                     <div class="col-7">
@@ -85,9 +91,9 @@
 
             </div>
             <div class="modal-footer">
-                <button id="ddlExit" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button id="ddlUpd" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar cambios</button>
-                <button id="ddlAdd" type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnExit" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button id="btnUpd" onclick="Update()" style="display: none" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar cambios</button>
+                <button id="btnAdd" onclick="Add()" style="display: none"  type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>
