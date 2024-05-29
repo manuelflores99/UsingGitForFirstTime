@@ -242,7 +242,7 @@ function SoloLetras(input, label) {
 function LetrasYNumeros(input, label) {
 
     var teclas = $(input).val();
-    var regex = /^[a-zA-Z0-9]+$/;
+    var regex = /^[a-zA-Z0-9\s]*$/;
 
     if (regex.test(teclas)) {
 
@@ -280,4 +280,21 @@ function SoloNumeros(input, label) {
         $(input).css({ "border-color": "", "background-color": "" });
     }, 3000);
 
+}
+
+function ValidarCampos() {
+
+    var titulo = document.getElementById('ddlTitulo').value.trim();
+    var autor = document.getElementById('ddlAutor').value.trim();
+    var isbn = document.getElementById('ddlIsbn').value.trim();
+    var anio = document.getElementById('ddlAnio').value.trim();
+    //var editorial = document.getElementById('ddlEditorial').value;
+    //var ciudad = document.getElementById('ddlCiudad').value;
+
+    // Verificar si algún campo está vacío
+    if (titulo === "" || autor === "" || isbn === "" || anio === "" || editorial === "" || ciudad === "") {
+        alert("Por favor completa todos los campos.");
+        return false; // Detener la ejecución
+    }
+    return true;
 }
