@@ -8,10 +8,10 @@
 </div>
 
 <div class="container">
-    <table class="table table-striped table-responsive">
+    <table id="miTabla" class="table table-striped table-responsive">
         <thead class="table table-dark">
             <tr>
-                 <th></th>
+                <th></th>
                 <th>Titulo</th>
                 <th>Autor</th>
                 <th>ISBN</th>
@@ -35,63 +35,55 @@
             </div>
             <div class="modal-body">
 
-                 <div class="row justify-content-center">
+                <div class="row justify-content-center">
                     <div class="col-7">
-                        <input id="ddlIdLibro" class="form-control" type="hidden"/>
+                        <input id="ddlIdLibro" class="form-control" type="hidden" />
                     </div>
                 </div>
 
                 <div class="row justify-content-center">
                     <div class="col-7">
-                        <label class="form-label" >Titulo</label>
-                        <input id="ddlTitulo" class="form-control" type="text" placeholder="Titulo Libro"  onkeyup="LetrasYNumeros(this,'lblTitulo')"/>
+                        <label class="form-label">Titulo</label>
+                        <input id="ddlTitulo" class="form-control" type="text" placeholder="Titulo Libro" onkeyup="LetrasYNumeros(this,'lblTitulo')" />
                         <label id="lblTitulo" style="color: red"></label>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">Autor</label>
-                        <input id="ddlAutor" class="form-control" type="text" placeholder="Autor" onkeyup="SoloLetras(this,'lblAutor')"/>
+                        <input id="ddlAutor" class="form-control" type="text" placeholder="Autor" onkeyup="SoloLetras(this,'lblAutor')" />
                         <label id="lblAutor" style="color: red"></label>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">ISBN</label>
-                        <input id="ddlIsbn" class="form-control" type="text" placeholder="ISBN"  onkeyup="SoloNumeros(this, 'lblIsbn')"/>
+                        <input id="ddlIsbn" class="form-control" type="text" placeholder="ISBN" onblur="SoloNumeros(this, 'lblIsbn')" />
                         <label id="lblIsbn" style="color: red"></label>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">Año de Publicacion</label>
-                        <input class="form-control" type="date" id="ddlAnio" />
-                        <label id="lblTitulo" style="color: red"></label>
+                        <input class="form-control" type="number" id="ddlAnio" onblur="SoloNumeros(this, 'lblAnio')" />
+                        <label id="lblAnio" style="color: red"></label>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">Editorial</label>
                         <select id="ddlEditorial" class="form-select">Selecciona una Opcion</select>
-                        <label id="lblTitulo" style="color: red"></label>
                     </div>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-7">
-                        <label class="form-label">Ciudad</label>
-                        <select id="ddlCiudad" class="form-select">Selecciona una Opcion</select>
-                        <label id="lblTitulo" style="color: red"></label>
-                    </div>
-                </div>
-
             </div>
             <div class="modal-footer">
                 <button id="btnExit" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button id="btnUpd" onclick="ValidarCampos()" style="display: none" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar cambios</button>
-                <button id="btnAdd" onclick="ValidarCampos()" style="display: none"  type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnUpd" onclick="ValidarCampos(), Update()" style="display: none" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar cambios</button>
+                <button id="btnAdd" onclick="ValidarCampos(), Add()" style="display: none" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/js/LibroAjax.js" asp-append-version="true"></script>
+
