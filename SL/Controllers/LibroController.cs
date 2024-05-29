@@ -27,5 +27,25 @@ namespace SL.Controllers
                 return BadRequest(result);
             }
         }
+
+        [HttpGet]
+        [Route("GetById")]
+        public IActionResult GetById(int idLibro)
+        {
+            Result result = new Result();
+            var task = BL.Libro.GetById(idLibro);
+            result.Success = task.Success;
+            result.Message = task.Message;
+            result.Data = task.Libro;
+
+            if (task.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
     }
 }
