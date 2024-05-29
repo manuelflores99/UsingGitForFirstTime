@@ -29,7 +29,7 @@ namespace SL.Controllers
         }
 
         [HttpGet]
-        [Route("GetById")]
+        [Route("GetById/{idLibro}")]
         public IActionResult GetById(int idLibro)
         {
             Result result = new Result();
@@ -48,7 +48,7 @@ namespace SL.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("Add")]
         public IActionResult Add([FromBody] ML.Libro libro)
         {
@@ -67,7 +67,7 @@ namespace SL.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPut]
         [Route("Update")]
         public IActionResult Update([FromBody] ML.Libro libro)
         {
@@ -86,8 +86,8 @@ namespace SL.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("Delete")]
+        [HttpDelete]
+        [Route("Delete/{idLibro}")]
         public IActionResult Delete(int idLibro)
         {
             Result result = new Result();
