@@ -4,7 +4,7 @@
 
 <div style="margin: 20px">
     <!-- Button trigger modal -->
-    <button type="button" onclick="Limpiar()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">
+    <button type="button" id="btnModal" onclick="Limpiar()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#miModal">
         Agregar Libro
     </button>
 </div>
@@ -60,37 +60,43 @@
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label" >Titulo</label>
-                        <input id="ddlTitulo" class="form-control" type="text" placeholder="Titulo Libro" />
+                        <input id="ddlTitulo" class="form-control" type="text" placeholder="Titulo Libro"  onkeyup="LetrasYNumeros(this,'lblTitulo')"/>
+                        <label id="lblTitulo" style="color: red"></label>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">Autor</label>
-                        <input id="ddlAutor" class="form-control" type="text" placeholder="Autor" />
+                        <input id="ddlAutor" class="form-control" type="text" placeholder="Autor" onkeyup="SoloLetras(this,'lblAutor')"/>
+                        <label id="lblAutor" style="color: red"></label>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">ISBN</label>
-                        <input id="ddlIsbn" class="form-control" type="text" placeholder="ISBN" />
+                        <input id="ddlIsbn" class="form-control" type="text" placeholder="ISBN"  onkeyup="SoloNumeros(this, 'lblIsbn')"/>
+                        <label id="lblIsbn" style="color: red"></label>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">Año de Publicacion</label>
                         <input class="form-control" type="date" id="ddlAnio" />
+                        <label id="lblTitulo" style="color: red"></label>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">Editorial</label>
                         <select id="ddlEditorial" class="form-select">Selecciona una Opcion</select>
+                        <label id="lblTitulo" style="color: red"></label>
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">Ciudad</label>
                         <select id="ddlCiudad" class="form-select">Selecciona una Opcion</select>
+                        <label id="lblTitulo" style="color: red"></label>
                     </div>
                 </div>
 
@@ -103,3 +109,5 @@
         </div>
     </div>
 </div>
+
+ <script src="~/js/LibroAjax.js"></script>
