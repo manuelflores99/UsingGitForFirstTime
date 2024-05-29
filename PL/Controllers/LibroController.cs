@@ -10,7 +10,7 @@ namespace PL.Controllers
             
             using(HttpClient client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:7116/");
+                client.BaseAddress = new Uri("https://localhost:7116/api/");
                 var task = client.GetAsync("Libro/GetAll");
 
                 var taskResult = task.Result;
