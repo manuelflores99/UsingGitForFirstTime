@@ -1,4 +1,5 @@
 @using PL.Models.DTO
+@model Libro
 <h3>Libros</h3>
 
 <div style="margin: 20px">
@@ -23,16 +24,19 @@
             </tr>
         </thead>
         <tbody id="Show">
-            <tr>
-                <td><button onclick="GetById()" class="btn btn-success">Editar</button></td>
-                <td>inifgdfg</td>
-                <td>inifgdfg</td>
-                <td>inifgdfg</td>
-                <td>inifgdfg</td>
-                <td>inifgdfg</td>
-                <td>inifgdfg</td>
-                 <td><button onclick="Delete()"  class="btn btn-danger">Eliminar</button></td>
-            </tr>
+            @foreach(var libro in Model.Libros)
+            {
+                <tr>
+                    <td><button onclick="GetById()" class="btn btn-success">Editar</button></td>
+                    <td>@libro.Titulo</td>
+                    <td>@libro.Autor</td>
+                    <td>@libro.Isbn</td>
+                    <td>@libro.AnioPublicacion.ToString("yyyy")</td>
+                    <td>@libro.Editorial.Nombre</td>
+                    <td>@libro.Ciudad.NombreCiudad</td>
+                    <td><button onclick="Delete()" class="btn btn-danger">Eliminar</button></td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
