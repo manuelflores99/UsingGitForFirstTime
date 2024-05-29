@@ -184,5 +184,32 @@ namespace BL
                 return (false, "Ocurrio un error al realizar la operación: " + ex.Message);
             }
         }
+
+        public static (bool Success, string Message) Delete(int idLibro)
+        {
+            try
+            {
+                using (DL.AppDbContext context = new DL.AppDbContext())
+                {
+
+                    context.Libros.Remove(new DL.Libro { IdLibro = idLibro });
+
+                    int rowAffected = context.SaveChanges();
+
+                    if (rowAffected > 0)
+                    {
+                        return (true, null);
+                    }
+                    else
+                    {
+                        return (false, "No se logro eliminar el registro");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (false, "Ocurrio un error al realizar la operación: " + ex.Message);
+            }
+        }
     }
 }
