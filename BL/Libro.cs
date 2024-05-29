@@ -12,7 +12,7 @@ namespace BL
         {
             try
             {
-                using(DL.AppDbContext context = new DL.AppDbContext())
+                using (DL.AppDbContext context = new DL.AppDbContext())
                 {
                     List<ML.Libro> libros = new List<ML.Libro>();
                     var results = (from lib in context.Libros
@@ -29,9 +29,9 @@ namespace BL
                                    }
                                    ).ToList();
 
-                    if(results != null && results.Count > 0)
+                    if (results != null && results.Count > 0)
                     {
-                        foreach(var item in results)
+                        foreach (var item in results)
                         {
                             ML.Libro libro = new ML.Libro
                             {
@@ -59,6 +59,57 @@ namespace BL
             catch (Exception ex)
             {
                 return (false, "Ocurrio un error al realizar la operación: " + ex.Message, null);
+            }
+        }
+
+        public static (bool Success, string Message, ML.Libro Libro) GetById(int idLibro)
+        {
+            try
+            {
+                using (DL.AppDbContext context = new DL.AppDbContext())
+                {
+                    var query = (from lib in context.Libros
+                                 join edi in context.Editorials on lib.IdEditorial equals edi.IdEditorial
+                                 where lib.IdLibro == idLibro
+                                 select new
+                                 {
+                                     IdLibro = lib.IdLibro,
+                                     Titulo = lib.Titulo,
+                                     Autor = lib.Autor,
+                                     Isbn = lib.Isbn,
+                                     AnioPublicacion = lib.AnioPublicacion,
+                                     IdEditorial = edi.IdEditorial,
+                                     NombreEditorial = edi.Nombre
+                                 }
+                                 ).SingleOrDefault();
+
+                    if (query != null)
+                    {
+                        ML.Libro libro = new ML.Libro
+                        {
+                            IdLibro = query.IdLibro,
+                            Titulo = query.Titulo,
+                            Autor = query.Autor,
+                            Isbn = query.Isbn,
+                            AnioPublicacion = query.AnioPublicacion,
+                            Editorial = new ML.Editorial
+                            {
+                                IdEditorial = query.IdEditorial,
+                                Nombre = query.NombreEditorial
+                            }
+                        };
+                        return (true, null, libro);
+                    }
+                    else
+                    {
+                        ML.Libro libro = new ML.Libro();
+                        return (true, "No se encontro el registro", libro);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (false, "Ocurrio un error al procesar la solicitud: " + ex.Message, null);
             }
         }
     }
