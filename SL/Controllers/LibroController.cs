@@ -85,5 +85,24 @@ namespace SL.Controllers
                 return BadRequest(result);
             }
         }
+
+        [HttpGet]
+        [Route("Delete")]
+        public IActionResult Delete(int idLibro)
+        {
+            Result result = new Result();
+            var task = BL.Libro.Delete(idLibro);
+            result.Success = task.Success;
+            result.Message = task.Message;
+
+            if (task.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
     }
 }
