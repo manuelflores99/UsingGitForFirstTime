@@ -13,6 +13,7 @@
         public DateTime AnioPublicacion { get; set; }
 
         public Editorial Editorial { get; set; }
+        public Ciudad Ciudad { get; set; }
         public List<Models.DTO.Libro> Libros { get; set; }
     }
 }

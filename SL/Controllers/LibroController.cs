@@ -27,5 +27,82 @@ namespace SL.Controllers
                 return BadRequest(result);
             }
         }
+
+        [HttpGet]
+        [Route("GetById")]
+        public IActionResult GetById(int idLibro)
+        {
+            Result result = new Result();
+            var task = BL.Libro.GetById(idLibro);
+            result.Success = task.Success;
+            result.Message = task.Message;
+            result.Data = task.Libro;
+
+            if (task.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet]
+        [Route("Add")]
+        public IActionResult Add([FromBody] ML.Libro libro)
+        {
+            Result result = new Result();
+            var task = BL.Libro.Add(libro);
+            result.Success = task.Success;
+            result.Message = task.Message;
+
+            if (task.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet]
+        [Route("Update")]
+        public IActionResult Update([FromBody] ML.Libro libro)
+        {
+            Result result = new Result();
+            var task = BL.Libro.Update(libro);
+            result.Success = task.Success;
+            result.Message = task.Message;
+
+            if (task.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
+
+        [HttpGet]
+        [Route("Delete")]
+        public IActionResult Delete(int idLibro)
+        {
+            Result result = new Result();
+            var task = BL.Libro.Delete(idLibro);
+            result.Success = task.Success;
+            result.Message = task.Message;
+
+            if (task.Success)
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+        }
     }
 }
