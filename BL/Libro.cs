@@ -123,7 +123,6 @@ namespace BL
                 {
                     DL.Libro copyLibro = new DL.Libro
                     {
-                        IdLibro = libro.IdLibro,
                         Titulo = libro.Titulo,
                         Autor = libro.Autor,
                         Isbn = libro.Isbn,
@@ -142,6 +141,41 @@ namespace BL
                     else
                     {
                         return (false, "No se logro realizar el registro");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return (false, "Ocurrio un error al realizar la operación: " + ex.Message);
+            }
+        }
+        public static (bool Success, string Message) Update(ML.Libro libro)
+        {
+            try
+            {
+                using (DL.AppDbContext context = new DL.AppDbContext())
+                {
+                    DL.Libro copyLibro = new DL.Libro
+                    {
+                        IdLibro = libro.IdLibro,
+                        Titulo = libro.Titulo,
+                        Autor = libro.Autor,
+                        Isbn = libro.Isbn,
+                        AnioPublicacion = libro.AnioPublicacion,
+                        IdEditorial = libro.Editorial.IdEditorial
+                    };
+
+                    context.Libros.Update(copyLibro);
+
+                    int rowAffected = context.SaveChanges();
+
+                    if (rowAffected > 0)
+                    {
+                        return (true, null);
+                    }
+                    else
+                    {
+                        return (false, "No se logro realizar el cambio");
                     }
                 }
             }
