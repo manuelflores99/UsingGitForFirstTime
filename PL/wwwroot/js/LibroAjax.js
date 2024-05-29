@@ -1,37 +1,38 @@
-﻿//$(document).ready(function () {
+﻿$(document).ready(function () {
 
-//    GetAll();
-//});
+    GetAll();
+});
 
-//function GetAll() {
+function GetAll() {
 
-//    $.ajax({
-//        url: "https://localhost:7116/api/Libro/GetAll",
-//        type: "GET",
-//        crossDomain: true,
-//        dataType: "JSON",
-//        success: function (result) {
-//            if (result.data) {
-//                $.each(result.data.libros, function (i, libros) {
-//                    $("#Show").append("<tr>" +
-//                        "<td><button type='button' class='btn btn-success' onclick='GetById(" + result.data.libros.idLibro + ")' >Editar</button></td>" +
-//                        "<td>" + result.data.titulo + "</td>" +
-//                        "<td>" + result.data.autor + "</td>" +
-//                        "<td>" + result.data.iSBN + "</td>" +
-//                        "<td>" + result.data.anioPublicacion + "</td>" +
-//                        "<td>" + result.data.editorial.nombreEditorial + "</td>" +
-//                        "<td>" + result.data.ciudad.nombreCiudad + "</td>" +
-//                        + "<td><button type='button' class='btn btn-danger' onclick='Delete(" + result.data.libros.idLibro + ")'>Eliminar</button></td>"
-//                        + "</tr>"
-//                    );
-//                })
-//            }
-//        },
-//        error: function (error) {
-//            alert('Error en la conexion');
-//        }
-//    });
-//}
+    $.ajax({
+        url: "https://localhost:7116/api/Libro/GetAll",
+        type: "GET",
+        crossDomain: true,
+        dataType: "JSON",
+        success: function (result) {
+            console.log(result);
+            if (result.success) {
+                $.each(result.data, function (i, libro) {
+                    $("#showLibros").append("<tr>" +
+                        "<td><button type='button' class='btn btn-success' onclick='GetById(" + libro.idLibro + ")' >Editar</button></td>" +
+                        "<td>" + libro.titulo + "</td>" +
+                        "<td>" + libro.autor + "</td>" +
+                        "<td>" + libro.iSBN + "</td>" +
+                        "<td>" + libro.anioPublicacion + "</td>" +
+                        "<td>" + libro.editorial.nombre + "</td>" +
+                        "<td>" + libro.ciudad.nombreCiudad + "</td>" +
+                        "<td><button type='button' class='btn btn-danger' onclick='Delete(" + libro.idLibro + ")'>Eliminar</button></td>" +
+                        "</tr>"
+                    );
+                })
+            }
+        },
+        error: function (error) {
+            alert('Error en la conexion');
+        }
+    });
+}
 
 //function GetById(idLibro) {
 
@@ -235,7 +236,7 @@ function SoloLetras(input, label) {
     setTimeout(function () {
 
         $(input).css({ "border-color": "", "background-color": "" });
-    }, 3000);   
+    }, 3000);
 }
 
 
