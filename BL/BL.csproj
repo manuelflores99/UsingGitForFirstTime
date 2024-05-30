@@ -9,7 +9,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DL\DL.csproj" />
     <ProjectReference Include="..\ML\ML.csproj" />
-    <ProjectReference Include="..\SL\SL.csproj" />
   </ItemGroup>
 
 </Project>
