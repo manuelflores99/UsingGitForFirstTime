@@ -58,7 +58,7 @@
                 <div class="row justify-content-center">
                     <div class="col-7">
                         <label class="form-label">ISBN</label>
-                        <input id="ddlIsbn" class="form-control" type="text" placeholder="ISBN" onblur="SoloNumeros(this, 'lblIsbn')" />
+                        <input id="ddlIsbn" class="form-control" type="text" placeholder="ISBN" onblur="Isbn(this, 'lblIsbn')" />
                         <label id="lblIsbn" style="color: red"></label>
                     </div>
                 </div>
@@ -78,8 +78,8 @@
             </div>
             <div class="modal-footer">
                 <button id="btnExit" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                <button id="btnUpd" onclick="ValidarCampos(), Update()" style="display: none" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar cambios</button>
-                <button id="btnAdd" onclick="ValidarCampos(), Add()" style="display: none" type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnUpd" onclick="Update()" style="display: none" type="button" class="btn btn-success" data-bs-dismiss="modal">Guardar cambios</button>
+                <button id="btnAdd" onclick="Add()" style="display: none" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>

@@ -70,76 +70,81 @@ function GetById(idLibro) {
 
 function Update() {
 
+    if (ValidarCampos()) {
 
-    var yearNumber = $("#ddlAnio").val();
-    var fecha = new Date(yearNumber, 0);
+        var yearNumber = $("#ddlAnio").val();
+        var fecha = new Date(yearNumber, 0);
 
-
-    $.ajax({
-        url: "https://localhost:7116/api/Libro/Update",
-        type: "PUT",
-        crossDomain: true,
-        dataType: "JSON",
-        contentType: 'application/json',
-        data: JSON.stringify({
-            idEmpledo: parseInt($("#ddlIdLibro").val()),
-            titulo: $("#ddlTitulo").val(),
-            autor: $("#ddlAutor").val(),
-            iSBN: $("#ddlIsbn").val(),
-            anioPublicacion: fecha,
-            editorial: {
-                idEditorial: $("#ddlEditorial").val(),
-                ciudad: {
-                    idCiudad: $("#ddlCiudad").val()
+        $.ajax({
+            url: "https://localhost:7116/api/Libro/Update",
+            type: "PUT",
+            crossDomain: true,
+            dataType: "JSON",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                idEmpledo: parseInt($("#ddlIdLibro").val()),
+                titulo: $("#ddlTitulo").val(),
+                autor: $("#ddlAutor").val(),
+                iSBN: $("#ddlIsbn").val(),
+                anioPublicacion: fecha,
+                editorial: {
+                    idEditorial: $("#ddlEditorial").val(),
+                    ciudad: {
+                        idCiudad: $("#ddlCiudad").val()
+                    }
                 }
+            }),
+            success: function (result) {
+                GetAll();
+                $("#btnExit").click();
+                alert("Registro Actualizado");
+            },
+            error: function (error) {
+                alert('Error en la conexion');
             }
-        }),
-        success: function (result) {
-            GetAll();
-            $("#btnExit").click();
-            alert("Registro Actualizado");
-        },
-        error: function (error) {
-            alert('Error en la conexion');
-        }
-    });
+        });
+    }
 }
 
 
 
 function Add() {
 
-    var yearNumber = $("#ddlAnio").val();
-    var fecha = new Date(yearNumber, 0);
+    if (ValidarCampos()) {
 
-    $.ajax({
-        url: "https://localhost:7116/api/Libro/Add",
-        type: "POST",
-        crossDomain: true,
-        dataType: "JSON",
-        contentType: 'application/json',
-        data: JSON.stringify({
+        var yearNumber = $("#ddlAnio").val();
+        var fecha = new Date(yearNumber, 0);
 
-            titulo: $("#ddlTitulo").val(),
-            autor: $("#ddlAutor").val(),
-            iSBN: $("#ddlIsbn").val(),
-            anioPublicacion: fecha,
-            editorial: {
-                idEditorial: $("#ddlEditorial").val(),
-                ciudad: {
-                    idCiudad: $("#ddlCiudad").val()
+        $.ajax({
+            url: "https://localhost:7116/api/Libro/Add",
+            type: "POST",
+            crossDomain: true,
+            dataType: "JSON",
+            contentType: 'application/json',
+            data: JSON.stringify({
+
+                titulo: $("#ddlTitulo").val(),
+                autor: $("#ddlAutor").val(),
+                iSBN: $("#ddlIsbn").val(),
+                anioPublicacion: fecha,
+                editorial: {
+                    idEditorial: $("#ddlEditorial").val(),
+                    ciudad: {
+                        idCiudad: $("#ddlCiudad").val()
+                    }
                 }
+            }),
+            success: function (result) {
+                GetAll();
+                $("#btnExit").click(); //CloseModal
+                alert("Registro Agregado");
+            },
+            error: function (error) {
+                alert('Error en la conexion');
             }
-        }),
-        success: function (result) {
-            GetAll();
-            $("#btnExit").click(); //CloseModal
-            alert("Registro Agregado");
-        },
-        error: function (error) {
-            alert('Error en la conexion');
-        }
-    });
+        });
+
+    }
 }
 
 
@@ -275,7 +280,8 @@ function LetrasYNumeros(input, label) {
 function Isbn(input, label) {
 
     var teclas = $(input).val();
-    var regex = /^\d+(?:-\d+)*$/;
+    var regex = /^[0-9-]{17}$/;
+    //var regex = /^[0-9-]*$/;
 
     if (regex.test(teclas)) {
 
@@ -283,7 +289,7 @@ function Isbn(input, label) {
         $(input).css({ "boder-color": "green", "background-color": "green" });
     }
     else {
-        $('#' + label).text("Solo se permiten numeros y guiones medios");
+        $('#' + label).text("Solo se permiten numeros, guiones medios y 17 caracteres");
         $(input).css({ "boder-color": "red", "background-color": "red" });
     }
 
@@ -323,12 +329,28 @@ function ValidarCampos() {
     var isbn = document.getElementById('ddlIsbn').value.trim();
     var anio = document.getElementById('ddlAnio').value.trim();
     var editorial = document.getElementById('ddlEditorial').value;
-    /*var ciudad = document.getElementById('ddlCiudad').value;*/
 
-    // Verificar si algún campo está vacío
-    if (titulo === "" || autor === "" || isbn === "" || anio === "" || editorial === "") {
+
+    if (editorial === "0") {
+        alert("Por favor completa todos los campos.");
+        return false; // Detener la ejecución
+    }
+    else if (titulo === "") {
+        alert("Por favor completa todos los campos.");
+        return false; // Detener la ejecución
+    }
+    else if (autor === "") {
+        alert("Por favor completa todos los campos.");
+        return false; // Detener la ejecución
+    }
+    else if (anio === "") {
+        alert("Por favor completa todos los campos.");
+        return false; // Detener la ejecución
+    }
+    else if (isbn === "") {
         alert("Por favor completa todos los campos.");
         return false; // Detener la ejecución
     }
     return true;
+  
 }
