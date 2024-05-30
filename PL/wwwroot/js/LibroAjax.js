@@ -4,6 +4,8 @@
 
 function GetAll() {
 
+    $("#showLibros").empty();
+
     $.ajax({
         url: "https://localhost:7116/api/Libro/GetAll",
         type: "GET",
@@ -162,20 +164,22 @@ function Limpiar() {
 }
 
 function Delete(idLibro) {
-    if (alert("¿Seguro que quieres eliminar este registro?")) {
+
+    if (confirm("¿Seguro que quieres eliminar este registro?")) {
         $.ajax({
             url: "https://localhost:7116/api/Libro/Delete/" + idLibro,
             type: "DELETE",
             crossDomain: true,
             dataType: "JSON",
             success: function (result) {
+                GetAll();
                 alert('Registro Eliminado Correctamente');
             },
             error: function (error) {
                 alert('Error en la conexion');
             }
         });
-    };
+    }
 }
 
 
