@@ -161,28 +161,38 @@ namespace BL
             {
                 using (DL.AppDbContext context = new DL.AppDbContext())
                 {
-                    DL.Libro copyLibro = new DL.Libro
+                    var query = (from libr in context.Libros
+                                 where libr.IdLibro == libro.IdLibro
+                                 select libr).FirstOrDefault();
+
+                    if(query != null)
                     {
-                        IdLibro = libro.IdLibro,
-                        Titulo = libro.Titulo,
-                        Autor = libro.Autor,
-                        Isbn = libro.Isbn,
-                        AnioPublicacion = libro.AnioPublicacion,
-                        IdEditorial = libro.Editorial.IdEditorial
-                    };
+                        query.Titulo = libro.Titulo;
+                        query.IdLibro = libro.IdLibro;
+                        query.Titulo = libro.Titulo;
+                        query.Autor = libro.Autor;
+                        query.Isbn = libro.Isbn;
+                        query.AnioPublicacion = libro.AnioPublicacion;
+                        query.IdEditorial = libro.Editorial.IdEditorial;
 
-                    context.Libros.Update(copyLibro);
+                        context.Libros.Update(query);
 
-                    int rowAffected = context.SaveChanges();
+                        int rowAffected = context.SaveChanges();
 
-                    if (rowAffected > 0)
-                    {
-                        return (true, null);
+                        if (rowAffected > 0)
+                        {
+                            return (true, null);
+                        }
+                        else
+                        {
+                            return (false, "No se logro realizar el cambio");
+                        }
                     }
                     else
                     {
                         return (false, "No se logro realizar el cambio");
                     }
+                    
                 }
             }
             catch (Exception ex)
