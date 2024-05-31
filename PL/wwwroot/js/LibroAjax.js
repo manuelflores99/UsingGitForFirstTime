@@ -2,6 +2,9 @@
     GetAll();
 });
 
+
+
+
 function GetAll() {
 
     $("#showLibros").empty();
@@ -15,12 +18,20 @@ function GetAll() {
             console.log(result);
             if (result.success) {
                 $.each(result.data, function (i, libro) {
+
+                    var fechaPublicacion = new Date(libro.anioPublicacion);
+                    // Verificar si la fecha de publicación es válida
+                    if (!isNaN(fechaPublicacion.getTime())) {
+                        // Obtener el año de la fecha de publicación
+                        var anioP = fechaPublicacion.getFullYear();
+                    }
+
                     $("#showLibros").append("<tr>" +
                         "<td><button type='button' class='btn btn-success' onclick='GetById(" + libro.idLibro + ")' >Editar</button></td>" +
                         "<td>" + libro.titulo + "</td>" +
                         "<td>" + libro.autor + "</td>" +
                         "<td>" + libro.isbn + "</td>" +
-                        "<td>" + libro.anioPublicacion + "</td>" +
+                        "<td>" + anioP+ "</td>" +
                         "<td>" + libro.editorial.nombre + "</td>" +
                         "<td>" + libro.ciudad.nombreCiudad + "</td>" +
                         "<td><button type='button' class='btn btn-danger' onclick='Delete(" + libro.idLibro + ")'>Eliminar</button></td>" +
@@ -84,7 +95,9 @@ function Update() {
             dataType: "JSON",
             contentType: 'application/json',
             data: JSON.stringify({
-                idEmpledo: parseInt($("#ddlIdLibro").val()),
+             
+
+                idLibro: parseInt($("#ddlIdLibro").val()),
                 titulo: $("#ddlTitulo").val(),
                 autor: $("#ddlAutor").val(),
                 iSBN: $("#ddlIsbn").val(),
@@ -228,7 +241,8 @@ function GetAllEditoriales() {
 //            alert('Error en la conexion');
 //        }
 //    });
-//} 
+//}  
+
 
 function ShowBtn() {
     $("#btnModal").click();
@@ -240,7 +254,7 @@ function ShowBtn() {
 function SoloLetras(input, label) {
 
     var teclas = $(input).val();
-    var regex = /^[a-zA-Z\s]+$/;
+    var regex = /^[a-zA-Z\s.]+$/;
 
     if (regex.test(teclas)) {
 
@@ -254,6 +268,7 @@ function SoloLetras(input, label) {
     }
     setTimeout(function () {
 
+        $('#' + label).text("");
         $(input).css({ "border-color": "", "background-color": "" });
     }, 3000);
 }
@@ -262,7 +277,7 @@ function SoloLetras(input, label) {
 function LetrasYNumeros(input, label) {
 
     var teclas = $(input).val();
-    var regex = /^[a-zA-Z0-9\s]*$/;
+    var regex = /^[a-zA-Z0-9\s',\-().!?&:;]{1,250}$/;
 
     if (regex.test(teclas)) {
 
@@ -270,12 +285,13 @@ function LetrasYNumeros(input, label) {
         $(input).css({ "boder-color": "green", "background-color": "green" });
     }
     else {
-        $('#' + label).text("Solo se permiten letras y numeros");
+        $('#' + label).text("No se permiten mas de 250 caracteres");
         $(input).css({ "boder-color": "red", "background-color": "red" });
     }
 
     setTimeout(function () {
 
+        $('#' + label).text("");
         $(input).css({ "border-color": "", "background-color": "" });
     }, 3000);
 
@@ -299,6 +315,7 @@ function Isbn(input, label) {
 
     setTimeout(function () {
 
+        $('#' + label).text("");
         $(input).css({ "border-color": "", "background-color": "" });
     }, 3000);
 
@@ -326,17 +343,60 @@ function SoloNumeros(input, label) {
 
 }
 
+function obtenerAnio() {
+    var d = new Date();
+    var n = d.getFullYear();
+    return n;
+}
+
+
+function FechaPubli(input, label) {
+
+    var anio = obtenerAnio();
+    var teclas = $(input).val();
+    var regex = /^\d{4}$/;
+
+    if (teclas > anio) {
+
+        $('#' + label).text("Año incorrecto, verifique que el año sea correspondiente a la fecha actual ");
+        $(input).css({ "boder-color": "red", "background-color": "red" });
+
+    }else 
+    if (regex.test(teclas)) {
+        $('#' + label).text("");
+        $(input).css({ "boder-color": "green", "background-color": "green" });
+    }
+    else {
+        $('#' + label).text("Ingrese un año ");
+        $(input).css({ "boder-color": "red", "background-color": "red" });
+    }
+
+    setTimeout(function () {
+        $('#' + label).text("");
+        $(input).css({ "border-color": "", "background-color": "" });
+    }, 3000);
+
+}
+
+
+
+
 function ValidarCampos() {
 
+    var anioActual = obtenerAnio();
     var titulo = document.getElementById('ddlTitulo').value.trim();
     var autor = document.getElementById('ddlAutor').value.trim();
     var isbn = document.getElementById('ddlIsbn').value.trim();
     var anio = document.getElementById('ddlAnio').value.trim();
     var editorial = document.getElementById('ddlEditorial').value;
 
+    if (anioActual < anio) {
+        alert("Por favor verifica que la fecha sea correcta");
+        return false; // Detener la ejecución
 
+    }else
     if (editorial === "0") {
-        alert("Por favor completa todos los campos.");
+        alert("Por favor completa todos los campos o verificar que la fecha sea correcta");
         return false; // Detener la ejecución
     }
     else if (titulo === "") {
